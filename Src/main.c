@@ -245,7 +245,7 @@ int main(void)
 	motorPinSetup();
 	loadCellSetup();
 	
-	motorTest();
+	//motorTest();
 	
 			
 	//sendStr("Running weight test...");
