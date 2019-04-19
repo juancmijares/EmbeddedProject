@@ -204,7 +204,7 @@ void loadCellSetup(void)
 	loadCellOneData.gpioData = GPIOA; // use GPIOA for data
 	loadCellOneData.pinSck = GPIO_PIN_1; // use pin 1 for clock
 	loadCellOneData.pinData = GPIO_PIN_2; // use pin 2 for data
-	loadCellOneData.offset = 0; // set offset
+	loadCellOneData.offset = 0; // set initial offset
 	loadCellOneData.gain = 1; // set gain
 	
 	HX711_Init(loadCellOneData);
@@ -223,18 +223,6 @@ void motorTest(void)
 	sendStr("Motor test complete.");
 }
 
-
-void spam(void)
-{
-	for (int i = 0; i < 25; i++)
-	{
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
-		HAL_Delay(1);
-		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
-		HAL_Delay(1);
-	}
-}
-
 int main(void)
 {
   HAL_Init();
@@ -245,19 +233,15 @@ int main(void)
 	motorPinSetup();
 	loadCellSetup();
 	
-	//motorTest();
-	
-			
-	//sendStr("Running weight test...");
-	//sendStr("Weight measured is:");
-	//weightValue = HX711_Value(loadCellOneData);
-	//sendStr("Weight test complete.");
+	motorTest();
+				
+	sendStr("Running weight test...");
+	weightValue = HX711_Value(loadCellOneData);
+	sendInt(weightValue);
 	
   while (1)
   {
 		//motorButton();
-		weightValue = HX711_Value(loadCellOneData);
-		sendInt(weightValue);
   }
 }
 
