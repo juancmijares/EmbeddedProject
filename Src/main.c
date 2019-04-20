@@ -5,8 +5,7 @@
 /* Global Variables ----------------------------------------------- */
 uint32_t debouncer = 0; // initialize debouncer variable for button input
 char outputDataChar[30]; // variable for storing integer data to be printed to the serial debug window
-HX711 loadCellOneData; // struct for passing setup info for load cell library
-int weightValue = 0; // load cell measurement variable
+
 
 void sendChar(char character)
 {
@@ -198,29 +197,29 @@ void SystemClock_Config(void);
   * @retval int
   */
 
-void loadCellSetup(void)
-{
-	loadCellOneData.gpioSck = GPIOA; // use GPIOA for clock
-	loadCellOneData.gpioData = GPIOA; // use GPIOA for data
-	loadCellOneData.pinSck = GPIO_PIN_1; // use pin 1 for clock
-	loadCellOneData.pinData = GPIO_PIN_2; // use pin 2 for data
-	loadCellOneData.offset = 0; // set initial offset
-	loadCellOneData.gain = 1; // set gain
-	
-	HX711_Init(loadCellOneData);
-};
-
 void motorTest(void)
 {
 	sendStr("Running motor test...");
 	motorForward();
-	HAL_Delay(1000);
+	HAL_Delay(3000);
 	motorStop();
 	HAL_Delay(1000);
 	motorBackward();
-	HAL_Delay(1000);
+	HAL_Delay(3000);
 	motorStop();
 	sendStr("Motor test complete.");
+}
+
+
+void spam(void)
+{
+	for (int i = 0; i < 25; i++)
+	{
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_SET);
+		HAL_Delay(1);
+		HAL_GPIO_WritePin(GPIOA, GPIO_PIN_1, GPIO_PIN_RESET);
+		HAL_Delay(1);
+	}
 }
 
 int main(void)
@@ -231,17 +230,12 @@ int main(void)
 	setupSerialDebug(); // setup serial debugging interface via UART
 	testButtonSetup(); // setup for test button input
 	motorPinSetup();
-	loadCellSetup();
-	
+		
 	motorTest();
-				
-	sendStr("Running weight test...");
-	weightValue = HX711_Value(loadCellOneData);
-	sendInt(weightValue);
 	
   while (1)
   {
-		//motorButton();
+		motorButton();
   }
 }
 

@@ -408,16 +408,6 @@
               <FilePath>../Src/stm32f0xx_hal_msp.c</FilePath>
             </File>
             <File>
-              <FileName>hx711.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Inc\hx711.c</FilePath>
-            </File>
-            <File>
-              <FileName>hx711.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\Inc\hx711.h</FilePath>
-            </File>
-            <File>
               <FileName>motor.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Inc\motor.c</FilePath>

@@ -3,7 +3,6 @@
 "motorcontrol\main.o"
 "motorcontrol\stm32f0xx_it.o"
 "motorcontrol\stm32f0xx_hal_msp.o"
-"motorcontrol\hx711.o"
 "motorcontrol\motor.o"
 "motorcontrol\stm32f0xx_hal_tim.o"
 "motorcontrol\stm32f0xx_hal_tim_ex.o"
